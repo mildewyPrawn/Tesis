@@ -1,0 +1,50 @@
+* Desarrollo
+Aquí voy a ir relatando lo que he hecho.
+
+** Processing
+No se  me ocurrió otra cosa  para ir creando la  interfaz, el problema
+con processing es  que está hecha en java, intenté  hacer una clase de
+Python y no funciona (estoy muy wey).
+
+Al final encontré un juego en internet  /"El juego de la vida"/ y está
+en python con processing, así que lo descargué y he estado viendo como
+funciona para replicarlo para mi interfaz.
+
+*** Dibujitos
+Ahorita solo tengo  unos puntos hardcodeados, tengo que  ver cómo leer
+un archivo o algo así, probablemente  (No se me ocurre otra forma) eso
+se  tendrá  que hacer  desde  la  terminar  al  momento de  correr  el
+programa.
+
+Tengo también el problema de los  colores, al parecer (Que no debería)
+todas las  cosas que dibujo  son del  mismo color, tengo  que arreglar
+eso.
+
+*** Isometría
+Los  puntos que  he hecho  están en  coordenadas chiquitas  (entre -10
+y 10)  para ambos ejes, el  problema con eso es  que processing cuando
+defines el tamaño de la ventana cuenta:
+
+1. Raro el (0,0) está en la esquina superior izquierda
+2.  Las coordenadas  se mantienen,  o sea,  la más  grande está  en la
+   esquina inferior derecha.
+
+Por lo anterior tenemos que si  dibujamos mis puntos todos van a estar
+muy pegados  al origen  (Esquina superior  izquierda). Lo  primero que
+hice fue inventarme una fórmula para  despegarlos pero no me salió, al
+final encontré algo llamado /isometría/  para más o menos preservar la
+distancia (No está perfecta porque como que los invierte).
+
+Bueno, eso es algo que debería haber  visto en la primaria o algo así,
+ahora  voy a  intentar meterle  más puntos  y replicar  lo de  leer el
+archivo para agregar mis puntos.
+
+*** Voronoi
+Como primer (mala)  idea voy a hacer lo de  para cada configuración de
+puntos  vuelve  a   calcular  el  diagrama  de  Voronoi   y  vuelve  a
+dibujar. Solo para ver que puedo  ir actualizando cosas en mi interfaz
+y  que  puedo  pasar  los  puntos  de  la  biblioteca  (Un  objeto)  a
+coordenadas simples.
+
+Luego tengo que  regresar a donde nos quedamos de  crear la estructura
+de datos (Posiblemente DCEL).
