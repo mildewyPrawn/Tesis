@@ -37,6 +37,8 @@ def makeNeighborsInactive(board, x, y):
 def makeFullBoard():
     return [[True for i in range(DIM)] for j in range(DIM)]
 
+'''Función que toma las lineas leídas y regresa una lista de puntos en
+forma de tuplas'''
 def lines_to_tuples(pts):
     pts_as_tups = []
     for pt in pts:
@@ -44,9 +46,10 @@ def lines_to_tuples(pts):
         pts_as_tups.append((float(tup[0]), float(tup[1])))
     return pts_as_tups
 
+'''Función que  crea el tablero  inicial. Tenemos que  usar isometrías
+para relocar los puntos, de otra  forma se ven muy juntos. Actualmente
+los voltea.'''
 def makeBoards(pts):
-    print(pts)
-    print('--------------')
     def f(t):
         return ((t[0]*25)+250, (t[1]*25)+250)
     board = list(map(lambda x: f(x), pts))
@@ -54,6 +57,8 @@ def makeBoards(pts):
     board_two = [(256, 258), (260, 257), (260, 255), (258, 254), (257, 256)]
     return (board, board_two)
 
+'''Función que dibuja los bordes. Estos bordes deberían servirnos para
+no ir al infinito.'''
 def drawBorder():
     stroke(0,255,0)
     line(5, 5, 695, 5);
@@ -62,6 +67,7 @@ def drawBorder():
     line(695, 695, 5, 695);
     # p.hola()
 
+'''Función que muestra el tablero, dibuja bolitas en el mapa.'''
 def showBoard(board):
     drawBorder() # TODO: crear dinamicamente el borde
     for pt in board:
