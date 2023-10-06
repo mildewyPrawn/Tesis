@@ -48,3 +48,67 @@ coordenadas simples.
 
 Luego tengo que  regresar a donde nos quedamos de  crear la estructura
 de datos (Posiblemente DCEL).
+
+*** Cython vs Jython
+Para calcular los datos de =shapely=  la biblioteca que hace el primer
+voronoi/delaunay se usa Cython. Y para calcular los de =processing= se
+usa Jython.
+
+Solo podemos  importar bibliotecas que  estén compiladas en  java para
+jython,  así  que o  cambio  la  interfaz  o  cambio los  datos  (otra
+biblioteca o programar mi delaunay).
+*** Fortune's algorithm
+Tengo  que  programar  mi  propio  algoritmo  porque  las  bibliotecas
+externas utilizan otros  lenguajes que no son java y  processing no me
+deja usar  cosas que  no estén en  python puro o  en algo  compilado a
+java.
+*** Clases
+Tengo una clase llamada =Pts=, la cual originalmente se iba a encargar
+de todo,  pero mi problema para  colorear cosas (creo que  ya hablé de
+esto) es que todos los objetos se quedan del mismo color, pero si hago
+objetos distintos  a cada uno  puedo asignarle  un color, solo  que el
+color es general para los objetos.
+
+Se me ocurre  entonces crear una clase =Puntos=, la  cual representa a
+los puntos de Voronoi, y esos van a ser de un color. Otra clase =EVor=
+que representa a las aristas de Voronoi, estas van a ser de otro color
+y finalmente otra que sea como =EDel= que represetnte a las aristas de
+Delaunay, estas tiene que calcularlas  Voronoi por eso de la dualidad,
+sino con los puros puntos no sabría bien cuál es su vecino.
+**** colores
+Ya tengo  un color por  cada objeto (puntos, líneas),  tengo problemas
+con el algoritmo de Fortune, creo que mis puntos tienen que ver, quizá
+en algún punto se hacen colineales o cocirculares.
+*** Delaunay
+Necesito una forma  de guardar los puntos de Voronoi  que son vecinos,
+es decir,  que comparten una arista,  para así poder trazar  la arista
+entre ellos.
+
+Y probablemente arreglar Voronoi xd
+
+A Python  implementation of Delaunay triangulation.  This implements a
+naive algorithm to generate valid  Delaunay triangulations of a set of
+points. A triangulation  is considered to be  a Delaunay triangulation
+when, for any triangle in the  set of points, the circumcircle of that
+triangle  does not  contain any  other data  points. More  information
+about     Delaunay    triangulations     can     be    found     here:
+https://en.wikipedia.org/wiki/Delaunay_triangulation
+
+The algorithm for generating the Delaunay mesh is very inefficient and
+runs in  O(N^3) time. This  can be greatly improved  by the use  of an
+incremental        algorithm        such       as        Bowyer-Watson
+(https://en.wikipedia.org/wiki/Bowyer%E2%80%93Watson_algorithm), which
+can run in O(N log N) time.
+** Delaunay
+*** DONE Not valid point(300.0,350.0)
+
+Ocurre cuando  un punto  aleatorio se  mueve y cae  sobre otro  que ya
+existía, probablemente lo mejor sea aleatorizar dicho punto de nuevo.
+
+Ya está arreglado Delaunay. Corre en O(n³).
+** Voronoi
+
+Hay unas  aristas fantasma con  Fortune, por  lo que hay  que corregir
+eso. La otra es calcularlo a partid de Delaunay
+
+*** Aristas fantasma
