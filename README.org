@@ -1,9 +1,11 @@
 * Proyecto de Tesis
 
-Para correr el programa:
++ Para correr el programa:
 
-#+BEGIN_SRC bash
-FILE=file.tes java -jar processing-py.jar Voronoi.pyde
-#+END_SRC
+  #+BEGIN_SRC bash
+    make run R=True FILE=example.tes
+  #+END_SRC
 
-Donde =file.tes= es el archivo que se va a leer que contiene los puntos.
+  Donde =example.tes= es el archivo que  se va a leer que contiene los
+  puntos (y se encuentra en la  carpEta =Examples=), Y =True= nos dice
+  si se va a mover un punto (para mover todos es con =False=).
