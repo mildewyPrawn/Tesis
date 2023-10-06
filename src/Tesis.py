@@ -21,17 +21,14 @@ def lines_to_tuples(pts):
     for pt in pts:
         tup = pt.strip().split(' ')
         pts_as_tups.append((float(tup[0]), float(tup[1])))
+    print('Puntos leidos: {}'.format(pts_as_tups))
     return pts_as_tups
 
 '''Funcion que  crea el tablero  inicial. Tenemos que  usar isometrias
 para relocar los puntos, de otra  forma se ven muy juntos. Actualmente
 los voltea.'''
 def makeBoards(pts):
-    for pt in pts.get_pts_iso():
-        print(pt)
-    for ed in pts.get_vor_edges():
-        print(ed)
-    print('desde tesis')
+    print('desde tesis (Lo primero que se llama)')
     board = pts.get_pts_iso()
     edges = pts.get_vor_edges()
     return (board, edges)
@@ -51,12 +48,21 @@ def drawBorder():
 
 '''Funcion que muestra el tablero, dibuja bolitas en el mapa.'''
 def showBoard(points, edges):
+    print('Show board (call from V.pyde)')
     drawBorder()
 
 '''Metodo que actualiza  el tablero, con los puntos y  aristas que hay
 que dibujar'''
 def updateBoard(board, points, edges):
+    print('Update board (call from V.pyde)')
     background(0)
     board.randomize()
     e = board.drawLines()
     p = board.drawPoints()
+    print('\t POINTS:')
+    for pi in p:
+        print('pi: {}'.format(pi))
+    print('\t EDGES:')
+    for ei in e:
+        print('ei: {}'.format(ei))
+    print('Finish update')

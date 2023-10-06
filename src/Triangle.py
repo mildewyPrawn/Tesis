@@ -20,7 +20,7 @@ class Triangle:
     '''toString de la clase'''
     def __str__(self):
         return 'A:{}-B:{}-C:{}'.format(self.ed1, self.ed2, self.ed3)
-        # return 
+        # return
 
     def __eq__(self, tri):
         return (self.a == tri.a or self.a == tri.b or self.a == tri.c) and (self.b == tri.a or self.b == tri.b or self.b == tri.c) and (self.c == tri.a or self.c == tri.b or self.c == tri.c)
@@ -36,9 +36,6 @@ class Triangle:
     '''Metodo que dibuja un triangulo  en processing. Manda a dibujar cada
     arista por separado (ver Edge.py)'''
     def draw(self):
-        print('draw -Triangle')
-        print('EDGES: {}{}{}'.format(self.ed1, self.ed2, self.ed3))
-        print('draw -Triangle')
         self.ed1.draw(2)
         self.ed2.draw(2)
         self.ed3.draw(2)

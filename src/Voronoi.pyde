@@ -18,7 +18,6 @@ with open(file) as f:
 points = lines_to_tuples(lines)
 
 pts = Board(points, argR == 'True')
-# print(pts.get_vor_edges())
 
 '''Metodo que necesita processing  para inicializar todo, asignamos el
 tamano  de la  ventana  y el  background. points  son  los puntos  que

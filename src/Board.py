@@ -17,6 +17,11 @@ class Board:
         self.triangles = []
         # Random for 1 or all points
         self.rand = rand
+        print('pts: {}'.format(self.pts))
+        print('begin iso_pts')
+        for p in self.iso_pts:
+            print('iso: {}'.format(p))
+        print('end iso_pts')
 
     '''ToString de la clase.'''
     def __str__(self):
@@ -71,14 +76,17 @@ class Board:
     '''Metodo que "resetea" las  configuraciones iniciales del diagrama de
     voronoi y la triangulacion de delaunay usando los puntos iniciales.'''
     def reset(self):
+        print('reset program')
         self.iso_pts = self.__calculate_pts_iso()
         vor = v.Voronoi(self.get_pts_iso())
         vor.process()
         delaunay = de.Delaunay(self.iso_pts)
         triangles = delaunay.get_triangulation()
         edges = vor.get_output()
-        for t in triangles:
-            print(t)
+        print('begin reset')
+        for p in self.iso_pts:
+            print('iso: {}'.format(p))
+        print('end reset')
         return (self.iso_pts, edges, triangles)
 
     '''Metodo que  dibuja los puntos,  depende de si se  van a mover  o no
@@ -91,9 +99,6 @@ class Board:
                 self.iso_pts[i].draw()
         else:
             for pti in self.iso_pts:
-                print(pti)
-            print('olap')
-            for pti in self.iso_pts:
                 pti.draw()
         return self.iso_pts
 
@@ -102,22 +107,17 @@ class Board:
     delaunay, de colorearlas se encarga Triangle.py y Edge.py'''
     def drawLines(self):
         stroke(255,0,0)
+        print('(Aquí deberíamos meter la actualización del paper)')
         vor = v.Voronoi(self.get_pts_iso())
         vor.process()
         self.edges = vor.get_output()
         delaunay = de.Delaunay(self.iso_pts)
         self.triangles = delaunay.get_triangulation()
-        print('\n\n\nEND PROCESSINGSSSS\n\n\n')
-        print('edges-begin')
-        for p1p2 in self.edges:
-            print(p1p2)
-        print('edges-end')
-        print('triangles-begin')
-        for t in self.triangles:
-            print(t)
-        print('triangles-end') # TODO
         for p1p2 in self.edges:
             p1p2.draw()
+        print('\tdrawLines (in B.py call from T.py)')
+        for ti in self.triangles:
+            print('DT(i): {}'.format(ti))
         for t in self.triangles:
             t.draw()
         return self.edges
@@ -138,8 +138,6 @@ class Board:
         def f(t):
             return (t[0]-50, t[1]+50)
         board = list(map(lambda x: f(x), pts))
-        print('mmmmmm' + str(pts))
-        print('llllll' + str(board))
         return board
 
     '''Metodo que regresa los puntos isometricos.'''
