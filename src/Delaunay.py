@@ -1,6 +1,6 @@
 import Triangle as tr
 import Circle as cr
-import Pt as pt
+import Point as pt
 
 class Delaunay:
 

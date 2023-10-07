@@ -1,4 +1,4 @@
-import Pt as pt
+import Point as pt
 import math
 
 class Circle:

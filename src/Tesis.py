@@ -1,7 +1,7 @@
 import itertools
 import heapq
 import random
-import Pt as pt
+import Point as pt
 import Edge as ed
 import Circle as cr
 

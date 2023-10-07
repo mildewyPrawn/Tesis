@@ -1,5 +1,5 @@
 import math
-import Pt as pt
+import Point as pt
 
 class Edge:
 

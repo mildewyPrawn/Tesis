@@ -1,6 +1,6 @@
 import random
 import Fortune as v
-import Pt as pt
+import Point as pt
 import Edge as ed
 import Delaunay as de
 
