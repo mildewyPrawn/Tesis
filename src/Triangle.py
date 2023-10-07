@@ -30,6 +30,7 @@ class Triangle:
     def is_equal(self, tri):
         return (self.a is tri.a or self.a is tri.b or self.a is tri.c) and (self.b is tri.a or self.b is tri.b or self.b is tri.c) and (self.c is tri.a or self.c is tri.b or self.c is tri.c)
 
+    '''Setter para circulo.'''
     def create_circle(self, c):
         self.circle = c
 

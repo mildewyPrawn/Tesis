@@ -107,7 +107,7 @@ class Board:
     delaunay, de colorearlas se encarga Triangle.py y Edge.py'''
     def drawLines(self):
         stroke(255,0,0)
-        print('(Aquí deberíamos meter la actualización del paper)')
+        print('(Aqui deberiamos meter la actualizacion del paper)')
         vor = v.Voronoi(self.get_pts_iso())
         vor.process()
         self.edges = vor.get_output()
