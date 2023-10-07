@@ -1,3 +1,5 @@
+.PHONY: all install clean run test
+
 all:
 	@echo "make install"
 	@echo "    Instala las bibliotecas de Python que serán usadas con conda"
@@ -11,6 +13,8 @@ install:
 
 clean:
 	@rm ./src/*.class > /dev/null || true
+	@rm -rf ./src/__pycache__ 2> /dev/null || true
+	@rm -rf ./test/__pycache__ 2> /dev/null || true
 	@rm -rf __pycache__ 2> /dev/null || true
 	@reset
 
@@ -18,5 +22,9 @@ run:
 	@reset
 	@cd src
 	R=${R} FILE="examples/"${FILE} java -jar lib/processing-py.jar src/Voronoi.pyde
+
+test:
+	@export PYTHONPATH=./src/
+	@python -m unittest discover -s test -p "*_test.py" -v
 
 
