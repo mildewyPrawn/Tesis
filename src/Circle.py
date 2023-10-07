@@ -42,6 +42,7 @@ class Circle:
         rd = self.determinant_3x3(axy, ax, ay, bxy, bx, by, cxy, cx, cy)
 
         self.radius = self.a.distance(self.origin) # radius of the circle
+        return (self.origin, self.radius)
 
     '''
     |e f|
@@ -56,7 +57,7 @@ class Circle:
     |cx cy cz|
     '''
     def determinant_3x3(self, ax, ay, az, bx, by, bz, cx, cy, cz):
-        return (ax * self.determinant_2x2(by, bz, cy, cz)) - (ay * self.determinant_2x2(bx, bz, cx, cz)) + (self.determinant_2x2(bx, by, cx, cy))
+        return (ax * self.determinant_2x2(by, bz, cy, cz)) - (ay * self.determinant_2x2(bx, bz, cx, cz)) + (az * self.determinant_2x2(bx, by, cx, cy))
 
     '''Metodo que dibuja el circulo en processing'''
     def draw(self):
