@@ -1,5 +1,5 @@
 from Circle import *
-from Pt import *
+from Point import *
 import math
 import random
 import unittest

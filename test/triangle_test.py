@@ -1,6 +1,6 @@
 from Circle import *
 from Edge import *
-from Pt import *
+from Point import *
 from Triangle import *
 import math
 import random
