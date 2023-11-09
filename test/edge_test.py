@@ -48,5 +48,22 @@ class TestEdge(unittest.TestCase):
             self.assertTrue(e1.edge_intersection(e2), '{} intersect {}'.format(e1, e2))
             self.assertFalse(e1.edge_intersection(e3), '{} intersect {}'.format(e1, e2))
 
+    def test_slope(self):
+        p1 = Point(-5,15)
+        p2 = Point(-10,18)
+        s1 = -3/5
+        e1 = Edge(p1, p2)
+        e2 = Edge(p2, p1)
+        p3 = Point(6, -8)
+        p4 = Point(14, -8)
+        s2 = -3/5
+        e3 = Edge(p3, p4)
+        e4 = Edge(p4, p3)
+        s2 = 0.0
+        self.assertTrue(e1.get_slope() == s1, '{} vs {}'.format(e1.get_slope(), s1))
+        self.assertTrue(e2.get_slope() == s1, '{} vs {}'.format(e1.get_slope(), s1))
+        self.assertTrue(e3.get_slope() == s2, '{} vs {}'.format(e3.get_slope(), s2))
+        self.assertTrue(e4.get_slope() == s2, '{} vs {}'.format(e4.get_slope(), s2))
+
 if __name__ == '__main__':
     unittest.main()
