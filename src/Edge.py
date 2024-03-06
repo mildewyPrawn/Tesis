@@ -12,7 +12,31 @@ class Edge:
 
     '''toString de la clase.'''
     def __str__(self):
-        return '{}-{}'.format(self.p1, self.p2)
+        return '{}-{}[{}]'.format(self.p1, self.p2, self.slope)
+
+    def __eq__(self, edge):
+        if (edge == None):
+            return False
+        return (self.p1.is_equal(edge.p1) or self.p2.is_equal(edge.p1)) and (self.p1.is_equal(edge.p2) or self.p2.is_equal(edge.p2))
+
+    def __key(self):
+        return (self.p1, self.p2)
+
+    def __u_key(self):
+        return (self.p2, self.p1)
+
+    def __hash__(self):
+        return hash(self.__key()) & hash(self.__u_key())
+
+    def p1(self):
+        return self.p1
+
+    def touch(self, edge):
+        return self.p1 == edge.p1 or self.p1 == edge.p2 or self.p2 == edge.p1 or self.p2 == edge.p2
+
+    def invert(self):
+        e = Edge(self.p2, self.p1)
+        return e
 
     '''Metodo para verificar si dos aristas son o no iguales.'''
     def is_equal(self, edge):
