@@ -64,6 +64,11 @@ class TestEdge(unittest.TestCase):
         self.assertTrue(e2.get_slope() == s1, '{} vs {}'.format(e1.get_slope(), s1))
         self.assertTrue(e3.get_slope() == s2, '{} vs {}'.format(e3.get_slope(), s2))
         self.assertTrue(e4.get_slope() == s2, '{} vs {}'.format(e4.get_slope(), s2))
+        # test for vertical lines
+        b = Point(13, 9)
+        c = Point(13, 11)
+        bc = Edge(b,c)
+        self.assertTrue(math.isnan(bc.get_slope()))
 
 if __name__ == '__main__':
     unittest.main()
