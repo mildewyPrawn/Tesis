@@ -3,6 +3,8 @@ import Point as pt
 
 class Edge:
 
+    slope = 0.0
+
     '''Constructor  de la  clase,  recibe dos  puntos y  si  estos no  son
     iguales, creamos la arista.'''
     def __init__(self, p1, p2):
@@ -74,6 +76,44 @@ class Edge:
                     return False
             except:
                 return False
+
+    def get_slope(self):
+        if (self.p1.x == self.p2.x):
+            return(float('nan'))
+        y = (self.p2.y - self.p1.y)
+        x = (self.p2.x - self.p1.x)
+        m = 0 if y == 0 or x == 0 else y/x
+        self.slope = m
+        return m
+
+    def get_equation(self):
+        m = self.get_slope()
+        x = self.p1.x
+        y = self.p1.y
+        mx = m * x
+        b = y - mx
+        if (m == 0):
+            m = 1
+        return (m, b)
+
+    '''ecuacion chida para  calcular una recta de  la forma ax + by  + c = 0'''
+    def get_general_equation(self):
+        a = self.p2.y - self.p1.y
+        b = self.p1.x - self.p2.x
+        c = self.p1.y*self.p2.x - self.p1.x*self.p2.y
+        return (a,b,c)
+
+    '''ecuacion  chida para  calcular la  madiatriz de  un segmento  de la
+    forma ax + by + c = 0'''
+    def get_mediatrix(self):
+        a1 = self.p1.x
+        b1 = self.p1.y
+        a2 = self.p2.x
+        b2 = self.p2.y
+        x = -1 * (a1*2) + (a2*2)
+        y = -1 * (b1*2) + (b2*2)
+        c = (a1**2 + b1**2) - (a2**2 + b2**2)
+        return (x, y, c)
 
     '''Metodo para dibujar la arista en processing'''
     def draw(self, arg=1):
