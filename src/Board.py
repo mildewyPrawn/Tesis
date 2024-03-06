@@ -3,6 +3,7 @@ import Fortune as v
 import Point as pt
 import Edge as ed
 import Delaunay as de
+import Teselation as ts
 
 class Board:
 
