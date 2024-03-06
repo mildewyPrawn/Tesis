@@ -23,8 +23,24 @@ class Triangle:
         # return
 
     def __eq__(self, tri):
+        if (tri == None):
+            return False
         return (self.a == tri.a or self.a == tri.b or self.a == tri.c) and (self.b == tri.a or self.b == tri.b or self.b == tri.c) and (self.c == tri.a or self.c == tri.b or self.c == tri.c)
 
+    def intersect(self, tri):
+        t1a = self.ed1
+        t1b = self.ed2
+        t1c = self.ed3
+        t2a = tri.ed1
+        t2b = tri.ed2
+        t2c = tri.ed3
+        t1 = [t1a, t1b, t1c]
+        t2 = [t2a, t2b, t2c]
+        for t1i in t1:
+            for t2i in t2:
+                if (t1i == t2i):
+                    return t1i
+        return None
 
     '''Metodo que dados dos triangulos nos dice si son o no iguales.'''
     def is_equal(self, tri):
