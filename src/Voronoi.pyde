@@ -2,7 +2,6 @@ import random
 import os
 from Tesis import *
 from Board import *
-import Fortune as f
 
 MODE = "RANDOM" # RANDOM or USER
 THREAD = "OFF" # ON or OFF
