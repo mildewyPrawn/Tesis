@@ -11,15 +11,21 @@ class Circle:
         self.a = a
         self.b = b
         self.c = c
+        self.tangent = 0
 
     '''toString de la clase'''
     def __str__(self):
-        return '{} at {} coll {}{}{}'.format(self.origin, self.radius, self.a, self.b, self.c)
+        return '{} at {} coll {}{}{} ends at: {}'.format(self.origin,
+                                                         self.radius,
+                                                         self.a, self.b, self.c,
+                                                         self.tangent)
 
     '''Dados tres  puntos nos  da la circunferencia  (origen y  radio) del
     circulo
-    https://math.stackexchange.com/questions/213658/get-the-equation-of-a-circle-when-given-3-points'''
+    https://math.stackexchange.com/questions/213658/get-the-equation-of-a-circle-when-given-3-points
+    Joseph O'Rourke Computational geometry in C makes without determinant'''
     def circumcircle(self):
+        print('Desde CIRCUMCIRCLE: {} {} {}'.format(self.a, self.b, self.c))
         ax = self.a.x
         ay = self.a.y
         bx = self.b.x
