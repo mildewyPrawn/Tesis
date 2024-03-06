@@ -1,4 +1,3 @@
-from Fortune import Voronoi
 import Point as pt
 import Circle as cr
 

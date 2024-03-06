@@ -3,7 +3,6 @@ import Delaunay as de
 import Edge as ed
 import Point as pt
 import Triangle as tr
-import Vor as vor
 import math
 
 class Teselation:

@@ -1,7 +1,6 @@
 import Point as pt
 import Circle as cr
 import Delaunay as de
-import Vor as vor
 import Edge as ed
 import math
 
