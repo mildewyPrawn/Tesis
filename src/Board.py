@@ -79,11 +79,10 @@ class Board:
     def reset(self):
         print('reset program')
         self.iso_pts = self.__calculate_pts_iso()
-        vor = v.Voronoi(self.get_pts_iso())
-        vor.process()
         delaunay = de.Delaunay(self.iso_pts)
         triangles = delaunay.get_triangulation()
-        edges = vor.get_output()
+        polygons = ts.Teselation(triangles)
+        self.edges = polygons.process_intersection()
         print('begin reset')
         for p in self.iso_pts:
             print('iso: {}'.format(p))
@@ -109,11 +108,10 @@ class Board:
     def drawLines(self):
         stroke(255,0,0)
         print('(Aqui deberiamos meter la actualizacion del paper)')
-        vor = v.Voronoi(self.get_pts_iso())
-        vor.process()
-        self.edges = vor.get_output()
         delaunay = de.Delaunay(self.iso_pts)
         self.triangles = delaunay.get_triangulation()
+        polygons = ts.Teselation(self.triangles)
+        self.edges = polygons.process_intersection()
         for p1p2 in self.edges:
             p1p2.draw()
         print('\tdrawLines (in B.py call from T.py)')
@@ -148,8 +146,8 @@ class Board:
     '''Metodo  que   regresa  las   aristas  iniciales  para   la  primera
     configuracion de las aristas de voronoi'''
     def get_vor_edges(self):
-        vor = v.Voronoi(self.get_pts_iso())
-        vor.process()
-        self.edges = vor.get_output()
         delaunay = de.Delaunay(self.iso_pts)
+        triangles = delaunay.get_triangulation()
+        polygons = ts.Teselation(triangles)
+        self.edges = polygons.process_intersection()
         return self.edges
