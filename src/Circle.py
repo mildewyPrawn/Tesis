@@ -48,6 +48,8 @@ class Circle:
         rd = self.determinant_3x3(axy, ax, ay, bxy, bx, by, cxy, cx, cy)
 
         self.radius = self.a.distance(self.origin) # radius of the circle
+
+        self.tangent = x0 + self.radius # tangente del circulo sobre x (Fortune)
         return (self.origin, self.radius)
 
     '''
@@ -64,6 +66,23 @@ class Circle:
     '''
     def determinant_3x3(self, ax, ay, az, bx, by, bz, cx, cy, cz):
         return (ax * self.determinant_2x2(by, bz, cy, cz)) - (ay * self.determinant_2x2(bx, bz, cx, cz)) + (az * self.determinant_2x2(bx, by, cx, cy))
+
+    def get_equation(self):
+        (p,r) = self.circumcircle()
+        h = p.x
+        k = p.y
+        return (h,k,r**2)
+
+    '''ecuacion chida para calcular un circulo de la forma (x-h)2 + (y-h)2 = r2
+    regresa: (x2, y2, -2xh, -2yk, -r2+h2+k2)'''
+    def get_equation_circ(self):
+        o, r = self.circumcircle()
+        h = o.x
+        k = o.y
+        x = (-1 * h * 2)
+        y = (-1 * k * 2)
+        r = (-1 * r**2) + (h**2) + (k**2)
+        return (1,1,x,y,r)
 
     '''Metodo que dibuja el circulo en processing'''
     def draw(self):
