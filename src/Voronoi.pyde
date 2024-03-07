@@ -41,6 +41,8 @@ def keyPressed():
             THREAD = "OFF"
     elif key == "r":
         reset()
+    elif key == "p":
+        print_tikz()
 
 '''Metodo reset,  servira para volver  a empeazar le ejecucion  con la
 configuracion inicial.'''
@@ -55,3 +57,6 @@ def draw():
     showBoard(p, e)
     if THREAD == "ON":
         updateBoard(pts, p, e)
+
+def print_tikz():
+    print_tesis(pts)

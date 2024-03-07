@@ -3,6 +3,7 @@ import Point as pt
 import Edge as ed
 import Delaunay as de
 import Teselation as ts
+import Drawer as dr
 
 class Board:
 
@@ -86,7 +87,7 @@ class Board:
         for p in self.iso_pts:
             print('iso: {}'.format(p))
         print('end reset')
-        return (self.iso_pts, edges, triangles)
+        return (self.iso_pts, self.edges, triangles)
 
     '''Metodo que  dibuja los puntos,  depende de si se  van a mover  o no
     todos. Todos son azules (ver Pt.py),  si solo uno se mueve, ese es
@@ -150,3 +151,8 @@ class Board:
         polygons = ts.Teselation(triangles)
         self.edges = polygons.process_intersection()
         return self.edges
+
+    def print_tesis_in_tikz(self):
+        tikz = dr.Drawer(self.edges, self.triangles)
+        string = tikz.tikz()
+        print(string)
