@@ -125,6 +125,8 @@ class Board:
     def __calculate_pts_iso(self):
         def f(t):
             return ((t[0]*100)+250, (t[1]*100)+250)
+        def g(t):
+            return ((t[0]-250)/100, (t[1]-250)/100)
         board = list(map(lambda x: f(x), self.pts))
         pts = []
         for b in board:
