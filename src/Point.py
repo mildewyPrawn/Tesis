@@ -17,6 +17,10 @@ class Point:
     def __str__(self):
         return '({},{})'.format(self.x, self.y)
 
+    '''So se can get by index a point.'''
+    def __getitem__(self, key):
+        return self.x if key == 0 else self.y
+
     # '''equals de la clase.'''
     # def __eq__(self, pt):
     #     return (self.x == pt.x and self.y == pt.y)
