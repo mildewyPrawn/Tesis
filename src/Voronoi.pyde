@@ -43,6 +43,8 @@ def keyPressed():
         reset()
     elif key == "p":
         print_tikz()
+    elif key == "g":
+        save_frame()
 
 '''Metodo reset,  servira para volver  a empeazar le ejecucion  con la
 configuracion inicial.'''
@@ -59,4 +61,7 @@ def draw():
         updateBoard(pts, p, e)
 
 def print_tikz():
-    print_tesis(pts)
+    print_thesis(pts)
+
+def save_frame():
+    save_thesis(pts)
