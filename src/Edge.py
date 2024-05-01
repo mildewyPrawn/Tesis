@@ -78,6 +78,28 @@ class Edge:
             except:
                 return False
 
+    '''False for x axis'''
+    def line_intersection(self, edge, axis=False):
+        # print('--------------------')
+        (a1,b1,c1) = self.get_general_equation()
+        (a2,b2,c2) = edge.get_general_equation()
+        # print('line 1 = {}x + {}y + {} = 0//{}'.format(a1,b1,c1, self))
+        # print('line 2 = {}x + {}y + {} = 0//{}'.format(a2,b2,c2, edge))
+        s  = ((a1*b2)-(a2*b1))
+        if s == 0:
+            return None
+        x0 = ((b1*c2)-(b2*c1)) / s
+        y0 = ((c1*a2)-(c2*a1)) / s
+        # print('intersection: ({}, {})'.format(x0, y0))
+        # return (x0, y0)
+        return pt.Point(x0, y0)
+
+    def set_bisector(self, bisector):
+        self.bisector = bisector
+
+    def get_bisector(self):
+        return self.bisector
+
     def get_slope(self):
         if (self.p1.x == self.p2.x):
             return(float('nan'))
