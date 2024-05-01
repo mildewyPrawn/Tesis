@@ -49,13 +49,19 @@ class Teselation:
             c = tri.c
             circle = cr.Circle(a=tri.a, b=tri.b, c=tri.c)
             if (e1 in edges_triangles):
-                lines = lines + self.clean_segments(circle, e1, a,b,c)
+                cs = self.clean_segments(circle, e1, a,b,c)
+                lines = lines + cs
+                e1.set_bisector(cs[0])
                 edges_triangles.remove(e1)
             if (e2 in edges_triangles):
-                lines = lines + self.clean_segments(circle, e2, b,c,a)
+                cs = self.clean_segments(circle, e2, b,c,a)
+                lines = lines + cs
+                e2.set_bisector(cs[0])
                 edges_triangles.remove(e2)
             if (e3 in edges_triangles):
-                lines = lines + self.clean_segments(circle, e3, c,a,b)
+                cs = self.clean_segments(circle, e3, c,a,b)
+                lines = lines + cs
+                e3.set_bisector(cs[0])
                 edges_triangles.remove(e3)
 
         return lines
