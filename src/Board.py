@@ -1,9 +1,10 @@
-import random
-import Point as pt
-import Edge as ed
+from datetime import datetime
 import Delaunay as de
-import Teselation as ts
 import Drawer as dr
+import Edge as ed
+import Point as pt
+import Teselation as ts
+import random
 
 class Board:
 
