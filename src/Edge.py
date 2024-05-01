@@ -121,9 +121,13 @@ class Edge:
 
     '''ecuacion chida para  calcular una recta de  la forma ax + by  + c = 0'''
     def get_general_equation(self):
-        a = self.p2.y - self.p1.y
-        b = self.p1.x - self.p2.x
-        c = self.p1.y*self.p2.x - self.p1.x*self.p2.y
+        x1 = self.p1.x
+        y1 = self.p1.y
+        x2 = self.p2.x
+        y2 = self.p2.y
+        a = y1 - y2
+        b = x2 - x1
+        c = (x1*y2 - x2*y1)
         return (a,b,c)
 
     '''ecuacion  chida para  calcular la  madiatriz de  un segmento  de la
