@@ -4,6 +4,7 @@ import Point as pt
 class Edge:
 
     slope = 0.0
+    bisector = None
 
     '''Constructor  de la  clase,  recibe dos  puntos y  si  estos no  son
     iguales, creamos la arista.'''
