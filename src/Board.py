@@ -155,7 +155,22 @@ class Board:
         self.edges = polygons.process_intersection()
         return self.edges
 
-    def print_tesis_in_tikz(self):
+    def print_thesis_in_tikz(self):
         tikz = dr.Drawer(self.edges, self.triangles)
         string = tikz.tikz()
         print(string)
+
+    '''save frame at: examples/stored/d-m-h:m:s.tes'''
+    def save_thesis(self):
+        def g(t):
+            return ((t[0]-250)/100, (t[1]-250)/100)
+        now = datetime.now()
+        current = now.strftime('%d-%m-%H:%M:%S')
+        new_board = list(map(lambda x: g(x), self.iso_pts))
+        file_name = '../examples/stored/{}.tes'.format(str(current))
+        print('FILENAME:\t{}'.format(file_name))
+        f = open(file_name, 'w')
+        for nb in new_board:
+            s = '{} {}\n'.format(nb[0], nb[1])
+            f.write(s)
+        f.close()
