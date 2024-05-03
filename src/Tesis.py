@@ -67,6 +67,7 @@ def updateBoard(board, points, edges):
         print('ei: {}'.format(ei))
     print('Finish update')
 
+<<<<<<< HEAD
 def print_thesis(board):
     print('Bienvenidos a tikz')
     board.print_thesis_in_tikz()
@@ -76,3 +77,9 @@ def save_thesis(board):
     print('Bienvenidos a save')
     board.save_thesis()
     print('Bai de save')
+=======
+def print_tesis(board):
+    print('Bienvenidos a tikz')
+    board.print_tesis_in_tikz()
+    print('Bai de tikz')
+>>>>>>> 202f453... Drawer
