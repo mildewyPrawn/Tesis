@@ -13,18 +13,41 @@ class Drawer:
         self.edges = edges
         self.triangles = triangles
 
-    '''Funcion que se encarga de  dibujar vertices, aristas (de triangulos
-    y del diagrama), y circurlos'''
+    def min_max(self, pts):
+        min_x = float('inf')
+        min_y = float('inf')
+        max_x = float('-inf')
+        max_y = float('-inf')
+        for pt in pts:
+            x = pt.x
+            y = pt.y
+            if (x < min_x):
+                min_x = x
+            if (x > max_x):
+                max_x = x
+            if (y < min_y):
+                min_y = y
+            if (y > max_y):
+                max_y = y
+        return ((min_x/100, min_y/100), (max_x/100, max_y/100))
+
     def tikz(self):
         begin = '\\begin{tikzpicture}[scale=1.5,thick, every node/.style={scale=1}]\n'
         end = '\\end{tikzpicture}\n'
         voronoi = '\\draw [line width=0.35mm, green] ({}, {}) -- ({},{});\n'
+        voronoio = '\\draw [dashed, green] ({}, {}) -- ({},{});\n'
         delaunay = '\\draw [line width=0.35mm ,red] ({}, {}) --({}, {});\n'
         point = '\\filldraw[blue] ({},{}) circle (1pt) node[anchor=south] {{}};\n'
         circle = '\\filldraw [yellow, fill=none] ({},{}) circle ({});\n'
+        limit = '\\draw [line width=0.35mm, green] ({}, {}) -- ({},{});\n'
         tikz = begin
-        for e in self.edges:
-            tikz = tikz + voronoi.format(e.p1.x/100, e.p1.y/100, e.p2.x/100, e.p2.y/100)
+        edges_triangles = set()
+        all_pts = set()
+        pts = set()
+
+        # draw red triangles
+        # add blue points (pts)
+        # draw yellow circles
         for t in self.triangles:
             e1 = t.ed1
             e2 = t.ed2
