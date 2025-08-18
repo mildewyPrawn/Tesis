@@ -4,11 +4,8 @@ import Drawer as dr
 import Edge as ed
 import Point as pt
 import Teselation as ts
-<<<<<<< HEAD
 import random
-=======
 import Drawer as dr
->>>>>>> 202f453... Drawer
 
 class Board:
 
@@ -159,7 +156,6 @@ class Board:
         self.edges = polygons.process_intersection()
         return self.edges
 
-<<<<<<< HEAD
     def print_thesis_in_tikz(self):
         tikz = dr.Drawer(self.edges, self.triangles)
         string = tikz.tikz()
@@ -179,9 +175,3 @@ class Board:
             s = '{} {}\n'.format(nb[0], nb[1])
             f.write(s)
         f.close()
-=======
-    def print_tesis_in_tikz(self):
-        tikz = dr.Drawer(self.edges, self.triangles)
-        string = tikz.tikz()
-        print(string)
->>>>>>> 202f453... Drawer
