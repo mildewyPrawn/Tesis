@@ -12,10 +12,12 @@ class Point:
         self.y = y
         self.n = n
 
-
     '''toString de la clase.'''
-    def __str__(self):
-        return '({},{})'.format(self.x, self.y)
+    def __repr__(self):
+        if (self.n == ''):
+            return '({},{})'.format(self.x, self.y)
+        else:
+            return '({})'.format(self.n)
 
     '''So se can get by index a point.'''
     def __getitem__(self, key):
