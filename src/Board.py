@@ -1,5 +1,5 @@
 from datetime import datetime
-import Delaunay as de
+import DelaunayBW as de
 import Drawer as dr
 import Edge as ed
 import Point as pt
@@ -81,7 +81,7 @@ class Board:
     def reset(self):
         print('reset program')
         self.iso_pts = self.__calculate_pts_iso()
-        delaunay = de.Delaunay(self.iso_pts)
+        delaunay = de.DelaunayBW(self.iso_pts)
         triangles = delaunay.get_triangulation()
         polygons = ts.Teselation(triangles)
         self.edges = polygons.process_intersection()
@@ -110,7 +110,7 @@ class Board:
     def drawLines(self):
         stroke(255,0,0)
         print('(Aqui deberiamos meter la actualizacion del paper)')
-        delaunay = de.Delaunay(self.iso_pts)
+        delaunay = de.DelaunayBW(self.iso_pts)
         self.triangles = delaunay.get_triangulation()
         polygons = ts.Teselation(self.triangles)
         self.edges = polygons.process_intersection()
@@ -150,7 +150,7 @@ class Board:
     '''Metodo  que   regresa  las   aristas  iniciales  para   la  primera
     configuracion de las aristas de voronoi'''
     def get_vor_edges(self):
-        delaunay = de.Delaunay(self.iso_pts)
+        delaunay = de.DelaunayBW(self.iso_pts)
         triangles = delaunay.get_triangulation()
         polygons = ts.Teselation(triangles)
         self.edges = polygons.process_intersection()
