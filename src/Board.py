@@ -6,6 +6,7 @@ import Point as pt
 import Teselation as ts
 import random
 import Drawer as dr
+import logging
 
 class Board:
 
@@ -13,6 +14,9 @@ class Board:
     buena idea  hacer la parte  de isometria, como lo  tenemos siempre
     calcula la isometria hasta que se pide.
     '''
+
+    logger = logging.getLogger('Board')
+
     def __init__(self, pts, rand):
         self.pts = pts
         self.iso_pts = self.__calculate_pts_iso()
@@ -20,11 +24,8 @@ class Board:
         self.triangles = []
         # Random for 1 or all points
         self.rand = rand
-        print('pts: {}'.format(self.pts))
-        print('begin iso_pts')
-        for p in self.iso_pts:
-            print('iso: {}'.format(p))
-        print('end iso_pts')
+        self.logger.info('The points are: {}'.format(self.pts))
+        self.logger.info('The iso_points are: {}'.format(self.iso_pts))
 
     '''ToString de la clase.'''
     def __str__(self):
@@ -79,16 +80,13 @@ class Board:
     '''Metodo que "resetea" las  configuraciones iniciales del diagrama de
     voronoi y la triangulacion de delaunay usando los puntos iniciales.'''
     def reset(self):
-        print('reset program')
+        self.logger.info('Reset the board.')
         self.iso_pts = self.__calculate_pts_iso()
         delaunay = de.DelaunayBW(self.iso_pts)
         triangles = delaunay.get_triangulation()
         polygons = ts.Teselation(triangles)
         self.edges = polygons.process_intersection()
-        print('begin reset')
-        for p in self.iso_pts:
-            print('iso: {}'.format(p))
-        print('end reset')
+        self.logger.info('iso_pts: {}.'.format(self.iso_pts))
         return (self.iso_pts, self.edges, triangles)
 
     '''Metodo que  dibuja los puntos,  depende de si se  van a mover  o no
@@ -116,9 +114,7 @@ class Board:
         self.edges = polygons.process_intersection()
         for p1p2 in self.edges:
             p1p2.draw()
-        print('\tdrawLines (in B.py call from T.py)')
-        for ti in self.triangles:
-            print('DT(i): {}'.format(ti))
+        self.logger.info('Triangles to draw: {}.'.format(self.triangles))
         for t in self.triangles:
             t.draw()
         return self.edges
@@ -157,9 +153,11 @@ class Board:
         return self.edges
 
     def print_thesis_in_tikz(self):
+        self.logger.info('Tikz saved on: {}.'.format('tikz.tex'))
         tikz = dr.Drawer(self.edges, self.triangles)
         string = tikz.tikz()
-        print(string)
+        with open("../tikz.tex", "a") as f:
+            f.write(string)
 
     '''save frame at: examples/stored/d-m-h:m:s.tes'''
     def save_thesis(self):
@@ -169,7 +167,7 @@ class Board:
         current = now.strftime('%d-%m-%H:%M:%S')
         new_board = list(map(lambda x: g(x), self.iso_pts))
         file_name = '../examples/stored/{}.tes'.format(str(current))
-        print('FILENAME:\t{}'.format(file_name))
+        self.logger.info('Save frame at {}.'.format(file_name))
         f = open(file_name, 'w')
         for nb in new_board:
             s = '{} {}\n'.format(nb[0], nb[1])

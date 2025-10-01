@@ -1,7 +1,10 @@
 import Point as pt
 import math
+import logging
 
 class Circle:
+
+    logger = logging.getLogger('Circle')
 
     '''Constructor de la clase, podemos crear circulos dados tres puntos o
     dado su origen y su radio'''
@@ -25,8 +28,7 @@ class Circle:
     https://math.stackexchange.com/questions/213658/get-the-equation-of-a-circle-when-given-3-points
     Joseph O'Rourke Computational geometry in C makes without determinant'''
     def circumcircle(self):
-        print('Desde CIRCUMCIRCLE(types): {} {} {}'.format(isinstance(self.a, Circle), isinstance(self.b, Circle), isinstance(self.c, Circle)))
-        print('Desde CIRCUMCIRCLE: [{}] [{}] [{}]'.format(self.a, self.b, self.c))
+        self.logger.info('Desde circumcircle: [{}] [{}] [{}]'.format(self.a, self.b, self.c))
         ax = self.a.x
         ay = self.a.y
         bx = self.b.x

@@ -4,8 +4,11 @@ import Edge as ed
 import Point as pt
 import Triangle as tr
 import math
+import logging
 
 class Drawer:
+
+    logger = logging.getLogger('Drawer')
 
     '''Constructor  que  recibe  los  triangulos de  la  triangulacion  de
     Delaunay y las aristas del diagrama de voronoi'''
@@ -119,12 +122,7 @@ class Drawer:
         e3 = ed.Edge(pt.Point(max_[0], max_[1]), pt.Point(min_[0], max_[1]))
         e4 = ed.Edge(pt.Point(max_[0], max_[1]), pt.Point(max_[0], min_[1]))
 
-        print('~~~~~~~~~~~~~~~~~~~~')
-        print(e1)
-        print(e2)
-        print(e3)
-        print(e4)
-        print('~~~~~~~~~~~~~~~~~~~~')
+        self.logger.info('Max coords are: {}, {}, {}, {}'.format(e1, e2, e3, e4))
 
         for t in self.triangles:
             _e1 = t.ed1

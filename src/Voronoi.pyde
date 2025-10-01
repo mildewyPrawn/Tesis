@@ -1,3 +1,4 @@
+import logging
 import random
 import os
 from Tesis import *
@@ -8,6 +9,13 @@ THREAD = "OFF" # ON or OFF
 PEN = "DRAW" # DRAW or ERASER
 FRAMERATE = 1
 
+logging.basicConfig()
+logging.root.setLevel(logging.NOTSET)
+logging.basicConfig(level=logging.NOTSET)
+logger = logging.getLogger("voronoi")
+
+logger.info("Logger intialized.")
+
 # with this i read files
 file = os.environ['FILE']
 # argument for randomize 1 or all the points
@@ -15,7 +23,6 @@ argR = os.environ['R']
 with open(file) as f:
     lines = f.readlines()
 points = lines_to_tuples(lines)
-
 pts = Board(points, argR == 'True')
 
 '''Metodo que necesita processing  para inicializar todo, asignamos el

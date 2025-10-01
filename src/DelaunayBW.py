@@ -4,16 +4,19 @@ import Point as pt
 import Edge as ed
 import Triangle as tr
 import Circle as cr
+import logging
 
 class DelaunayBW:
+
+    logger = logging.getLogger('Delaunay')
 
     def __init__(self, pts):
         if (len(pts) < 3):
             raise Exception("The number of points needs to be at least three, you have: {}".format(len(pts)))
         self.pts = pts
         self.outer_triangle = self.outer_triangle(pts)
-        print('pts: {}'.format(self.pts))
-        print('OT: {}'.format(self.outer_triangle))
+        self.logger.info('The points are: {}'.format(self.pts))
+        self.logger.info('Creating the Outer Triangle: {}'.format(self.outer_triangle))
         self.triangulate()
 
     def get_triangulation(self):
