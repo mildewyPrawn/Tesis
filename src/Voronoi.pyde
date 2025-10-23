@@ -52,6 +52,8 @@ def keyPressed():
         print_tikz()
     elif key == "g":
         save_frame()
+    elif key == "q":
+        exit()
 
 '''Metodo reset,  servira para volver  a empeazar le ejecucion  con la
 configuracion inicial.'''
