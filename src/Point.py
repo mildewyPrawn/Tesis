@@ -4,13 +4,17 @@ import math
 class Point:
     x = 0.0
     y = 0.0
+    nexts = []
+    current = 0
 
     '''Constructor de la  clase, inicializa las coordenadas de  un punto y
     un nombre'''
+    # def __init__(self, x, y, nexts, n=''):
     def __init__(self, x, y, n=''):
         self.x = x
         self.y = y
         self.n = n
+        # self.nexts = nexts
 
     '''toString de la clase.'''
     def __repr__(self):
@@ -26,6 +30,14 @@ class Point:
     # '''equals de la clase.'''
     # def __eq__(self, pt):
     #     return (self.x == pt.x and self.y == pt.y)
+
+    def update(self):
+        self.current = self.current + 1
+        if (self.current >= len(self.nexts)):
+            self.current = len(self.nexts) - 1
+        p = self.nexts[self.current]
+        self.x = p[0]
+        self.y = p[1]
 
     def is_between(self, p1, p2):
         # p1 = edge.p1
