@@ -9,12 +9,11 @@ class Point:
 
     '''Constructor de la  clase, inicializa las coordenadas de  un punto y
     un nombre'''
-    # def __init__(self, x, y, nexts, n=''):
-    def __init__(self, x, y, n=''):
-        self.x = x
-        self.y = y
+    def __init__(self, x, y, nexts=[], n=''):
+        self.x = float(x)
+        self.y = float(y)
         self.n = n
-        # self.nexts = nexts
+        self.nexts = nexts
 
     '''toString de la clase.'''
     def __repr__(self):
@@ -36,8 +35,8 @@ class Point:
         if (self.current >= len(self.nexts)):
             self.current = len(self.nexts) - 1
         p = self.nexts[self.current]
-        self.x = p[0]
-        self.y = p[1]
+        self.x = float(p[0])
+        self.y = float(p[1])
 
     def is_between(self, p1, p2):
         # p1 = edge.p1

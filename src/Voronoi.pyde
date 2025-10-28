@@ -17,13 +17,9 @@ logger = logging.getLogger("voronoi")
 logger.info("Logger intialized.")
 
 # with this i read files
-file = os.environ['FILE']
-# argument for randomize 1 or all the points
-argR = os.environ['R']
-with open(file) as f:
-    lines = f.readlines()
-points = lines_to_tuples(lines)
-pts = Board(points, argR == 'True')
+filename = os.environ['FILE']
+points = lines_to_points(filename)
+pts = Board(points)
 
 '''Metodo que necesita processing  para inicializar todo, asignamos el
 tamano  de la  ventana  y el  background. points  son  los puntos  que

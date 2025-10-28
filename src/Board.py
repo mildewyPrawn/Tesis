@@ -17,13 +17,11 @@ class Board:
 
     logger = logging.getLogger('Board')
 
-    def __init__(self, pts, rand):
+    def __init__(self, pts):
         self.pts = pts
         self.iso_pts = self.__calculate_pts_iso()
         self.edges = []
         self.triangles = []
-        # Random for 1 or all points
-        self.rand = rand
         self.logger.info('The points are: {}'.format(self.pts))
         self.logger.info('The iso_points are: {}'.format(self.iso_pts))
 
@@ -31,46 +29,9 @@ class Board:
     def __str__(self):
         return str(pts)
 
-    '''Metodo que hace que un  punto se mueva "aleatoriamente", depende de
-    si se  van a  mover todos o  no (bandera rand),  vamos a  tomar un
-    punto y calcular dos valores  aleatorios, si estos son congruentes
-    con 0 modulo  2, entonces los movemos con 50  pixeles a la derecha
-    y/o para abajo.'''
-    def randomize(self): #TODO no caer en el mismo punto
-        new_iso = []
-        r = int(random.uniform(0,100))
-        rx = int(random.uniform(0,100))
-        ry = int(random.uniform(0,100))
-        if self.rand:
-            pti = self.iso_pts[0]
-            x = pti.x
-            y = pti.y
-            rx = int(random.uniform(0,100))
-            ry = int(random.uniform(0,100))
-            if rx % 2 == 0:
-                x = x + 50
-            if ry % 3 == 0:
-                y = y + 50
-            new_iso.append((pt.Point(x,y)))
-            for i in range(1, len(self.iso_pts)):
-                new_iso.append(self.iso_pts[i])
-        else: # movemos todos los puntos
-            for pti in self.iso_pts:
-                rx = int(random.uniform(0,100))
-                ry = int(random.uniform(0,100))
-                x = pti.x
-                y = pti.y
-                if r % 2 == 0:
-                    if rx % 2 == 0:
-                        x = x + 50
-                    else:
-                        x = x - 10
-                    if ry % 3 == 0:
-                        y = y + 50
-                    else:
-                            y = y - 10
-                new_iso.append(pt.Point(x,y))
-        self.iso_pts = new_iso
+    def update(self):
+        for pti in self.iso_pts:
+            pti.update()
 
     '''Metodo que  regresa los puntos tal  y como los leemos  del archivo,
     este es el encargado de regresar cosas cuando hacemos un reset.'''
@@ -93,13 +54,8 @@ class Board:
     todos. Todos son azules (ver Pt.py),  si solo uno se mueve, ese es
     guinda.'''
     def drawPoints(self):
-        if self.rand:
-            self.iso_pts[0].draw(False)
-            for i in range(1, len(self.iso_pts)):
-                self.iso_pts[i].draw()
-        else:
-            for pti in self.iso_pts:
-                pti.draw()
+        for pti in self.iso_pts:
+            pti.draw()
         return self.iso_pts
 
     '''Metodo  que  dibuja las  lineas  (aristas),  calculamos las  medias
@@ -121,15 +77,17 @@ class Board:
 
     '''Metodo que calcula los puntos cambiados con la isometria.'''
     def __calculate_pts_iso(self):
-        def f(t):
-            return ((t[0]*100)+250, (t[1]*100)+250)
-        def g(t):
-            return ((t[0]-250)/100, (t[1]-250)/100)
+        def g(p):
+            return (p*100)+250
+        def f(p):
+            return (g(p.x), g(p.y), p.nexts)
         board = list(map(lambda x: f(x), self.pts))
         pts = []
         for b in board:
-            pts.append(pt.Point(b[0], b[1]))
+            n = list(map(lambda xy : (g(xy[0]), g(xy[1])), b[2]))
+            pts.append(pt.Point(b[0], b[1], n))
         pts.sort(key=lambda pt: pt.x)
+
         return pts
 
     '''Metodo que calcula los puntos cambiados con la isometria.'''
@@ -161,15 +119,13 @@ class Board:
 
     '''save frame at: examples/stored/d-m-h:m:s.tes'''
     def save_thesis(self):
-        def g(t):
-            return ((t[0]-250)/100, (t[1]-250)/100)
         now = datetime.now()
         current = now.strftime('%d-%m-%H:%M:%S')
-        new_board = list(map(lambda x: g(x), self.iso_pts))
         file_name = '../examples/stored/{}.tes'.format(str(current))
         self.logger.info('Save frame at {}.'.format(file_name))
         f = open(file_name, 'w')
-        for nb in new_board:
-            s = '{} {}\n'.format(nb[0], nb[1])
+        time = self.iso_pts[0].current
+        for nb in self.pts:
+            s = '{} {}\n'.format(nb.nexts[time][0], nb.nexts[time][1])
             f.write(s)
         f.close()

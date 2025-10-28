@@ -27,6 +27,32 @@ def lines_to_tuples(pts):
         logger.info('Puntos leidos: {}'.format(pts_as_tups))
     return pts_as_tups
 
+def lines_to_points(filename):
+    all_lines = []
+    max_moves = 0
+
+    with open(filename) as file:
+        for line in file:
+            s = line.strip().split(',')
+            max_moves = len(s) if len(s) > max_moves else max_moves
+            point_line = []
+            for si in s:
+                si = si.strip().split(' ')
+                t = (float(si[0]), float(si[1]))
+                point_line.append(t)
+            all_lines.append(point_line)
+
+    all_moves = []
+    for lines in all_lines:
+        missing = max_moves - len(lines)
+        points = []
+        last = lines[-1]
+        if missing != 0:
+            lines.extend([last] * missing)
+        all_moves.append(pt.Point(lines[0][0],lines[0][1], lines))
+
+    return all_moves
+
 '''Funcion que  crea el tablero  inicial. Tenemos que  usar isometrias
 para relocar los puntos, de otra  forma se ven muy juntos. Actualmente
 los voltea.'''
@@ -56,7 +82,7 @@ def showBoard(points, edges):
 que dibujar'''
 def updateBoard(board, points, edges):
     background(0)
-    board.randomize()
+    board.update()
     e = board.drawLines()
     p = board.drawPoints()
     logger.info('Update Board: <points {}>, <edges {}>'.format(p, e))
