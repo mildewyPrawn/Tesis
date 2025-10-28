@@ -92,6 +92,7 @@ class Point:
 
     '''Metodo que dibuja el punto en processing'''
     def draw(self, flag=True):
+        flag = self.nexts[self.current] == self.nexts[self.current - 1]
         if flag:
             stroke(0, 0, 255)
             fill(0,0,255)
