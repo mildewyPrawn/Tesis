@@ -22,17 +22,15 @@ for lines in all_lines:
     last = lines[-1]
     if missing != 0:
         lines.extend([last] * missing)
-    all_moves.append(lines)
+    all_moves.append(pt.Point(lines[0][0],lines[0][1], lines))
 
-print('->>>>>>>>>>>')
+print('->>>>>>>>>>> {}'.format(max_moves))
 print(all_moves)
 
-for moves in all_moves:
-    p = pt.Point(moves[0][0], moves[0][1], moves)
-    print(p)
+for p in all_moves:
     for i in range(0, max_moves+ 4):
+        print('After {}-update: {} -({})'.format(i, p, p.nexts))
         p.update()
-        print('After {}-update: {}'.format(i, p))
 
 
 

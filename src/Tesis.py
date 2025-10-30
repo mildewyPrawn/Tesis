@@ -38,7 +38,9 @@ def lines_to_points(filename):
             point_line = []
             for si in s:
                 si = si.strip().split(' ')
+                print(si)
                 t = (float(si[0]), float(si[1]))
+                print('-----{}'.format(t))
                 point_line.append(t)
             all_lines.append(point_line)
 

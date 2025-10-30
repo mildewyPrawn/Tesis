@@ -64,6 +64,28 @@ class DelaunayBW:
 
         self.triangulation = triangles
 
+    def __retriangulate(self, pts_to_retriangulate):
+        triangles = [self.outer_triangle]
+
+        for pt in pts_to_retriangulate:
+            triangles = self.add_vertex(pt, triangles)
+
+            def __bounding_with_outer(self, triangle):
+                ot = self.outer_triangle
+                flag = not (triangle.a == ot.a or triangle.a == ot.b or triangle.a == ot.c or triangle.b == ot.a or triangle.b == ot.b or triangle.b == ot.c or triangle.c == ot.a or triangle.c == ot.b or triangle.c == ot.c)
+                return flag
+
+        triangles = list(filter(lambda x : __bounding_with_outer(self, x), triangles))
+
+        for tri in triangles:
+            circle = cr.Circle(a=tri.a, b=tri.b, c=tri.c)
+            circle.circumcircle()
+            x0y0, r = circle.origin, circle.radius
+            tri.create_circle(circle)
+
+        return triangles
+
+
     def add_vertex(self, point, triangles):
         def __filter_triangles(self):
             new_triangles = []
@@ -99,3 +121,22 @@ class DelaunayBW:
                 unique.append(edges[i])
 
         return unique
+
+    '''doesn't work'''
+    def update(self, new_pt):
+        pts_to_retriangulate = []
+        good_triangles = []
+        for t in self.triangulation:
+            if new_pt in t:
+                pts_to_retriangulate.append(t.a)
+                pts_to_retriangulate.append(t.b)
+                pts_to_retriangulate.append(t.c)
+            else:
+                good_triangles.append(t)
+        new_triangles = self.__retriangulate(pts_to_retriangulate)
+
+        good_triangles.extend(new_triangles)
+
+        self.triangulation = good_triangles
+        return self.triangulation
+

@@ -149,3 +149,6 @@ class Triangle:
             return A == A1 + A2 + A3
         else:
             raise ValueError('Not a point')
+
+    def __iter__(self):
+        return iter([self.a, self.b, self.c])
