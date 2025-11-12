@@ -33,7 +33,11 @@ def lines_to_points(filename):
 
     with open(filename) as file:
         for line in file:
-            p = line.rstrip().split()
+            line = line.strip()
+            comment = line.find('#')
+            if comment != -1:
+                line = line[0:comment]
+            p = line.split()
             if len(p) == 4:
                 pts.append(pt.Point(float(p[0]), float(p[1]), float(p[2]), float(p[3])))
             if len(p) == 2:
