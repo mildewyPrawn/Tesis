@@ -1,6 +1,7 @@
 import itertools
 import heapq
 import random
+import sys
 import Point as pt
 import Edge as ed
 import Circle as cr
@@ -35,10 +36,13 @@ def lines_to_points(filename):
             p = line.rstrip().split()
             if len(p) == 4:
                 pts.append(pt.Point(float(p[0]), float(p[1]), float(p[2]), float(p[3])))
+            if len(p) == 2:
+                pts.append(pt.Point(float(p[0]), float(p[1]), flag=False))
 
     for p in pts:
         if not p.validate():
             print("the point {} does not lie on the trajectory".format(p))
+            sys.exit(1)
 
     return pts
 

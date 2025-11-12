@@ -80,12 +80,15 @@ class Board:
         def g(p):
             return (p*50)
         def f(p):
-            return (g(p.x), g(p.y), p.m)
+            return (g(p.x), g(p.y), p.m, p.flag)
         board = list(map(lambda x: f(x), self.pts))
         pts = []
         for b in board:
-            new_b = b[1] - (b[2] * b[0])
-            pts.append(pt.Point(b[0], b[1], b[2], new_b))
+            if b[3]:
+                new_b = b[1] - (b[2] * b[0])
+                pts.append(pt.Point(b[0], b[1], b[2], new_b))
+            else:
+                pts.append(pt.Point(b[0], b[1], flag=False))
 
         return pts
 

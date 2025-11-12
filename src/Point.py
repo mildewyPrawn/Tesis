@@ -11,12 +11,13 @@ class Point:
 
     '''Constructor de la  clase, inicializa las coordenadas de  un punto y
     un nombre'''
-    def __init__(self, x, y, m=0, b=0, n=''):
+    def __init__(self, x, y, m=0, b=0, flag=True, n=''):
         self.x = float(x)
         self.y = float(y)
         self.m = m
         self.b = b
         self.n = n
+        self.flag = flag
 
     '''toString de la clase.'''
     def __repr__(self):
@@ -34,9 +35,13 @@ class Point:
     #     return (self.x == pt.x and self.y == pt.y)
 
     def validate(self):
-        return self.y == (self.m * self.x) + self.b
+        if self.flag:
+            return self.y == (self.m * self.x) + self.b
+        return True
 
     def update(self):
+        if not self.flag:
+            return
         self.current = self.current + 1
         if (self.current >= self.limit):
             self.current = self.limit - 1
@@ -97,8 +102,7 @@ class Point:
 
     '''Metodo que dibuja el punto en processing'''
     def draw(self, flag=True):
-        flag = True
-        if flag:
+        if self.flag:
             stroke(0, 0, 255)
             fill(0,0,255)
         else:
