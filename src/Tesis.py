@@ -28,32 +28,19 @@ def lines_to_tuples(pts):
     return pts_as_tups
 
 def lines_to_points(filename):
-    all_lines = []
-    max_moves = 0
+    pts = []
 
     with open(filename) as file:
         for line in file:
-            s = line.strip().split(',')
-            max_moves = len(s) if len(s) > max_moves else max_moves
-            point_line = []
-            for si in s:
-                si = si.strip().split(' ')
-                print(si)
-                t = (float(si[0]), float(si[1]))
-                print('-----{}'.format(t))
-                point_line.append(t)
-            all_lines.append(point_line)
+            p = line.rstrip().split()
+            if len(p) == 4:
+                pts.append(pt.Point(float(p[0]), float(p[1]), float(p[2]), float(p[3])))
 
-    all_moves = []
-    for lines in all_lines:
-        missing = max_moves - len(lines)
-        points = []
-        last = lines[-1]
-        if missing != 0:
-            lines.extend([last] * missing)
-        all_moves.append(pt.Point(lines[0][0],lines[0][1], lines))
+    for p in pts:
+        if not p.validate():
+            print("the point {} does not lie on the trajectory".format(p))
 
-    return all_moves
+    return pts
 
 '''Funcion que  crea el tablero  inicial. Tenemos que  usar isometrias
 para relocar los puntos, de otra  forma se ven muy juntos. Actualmente

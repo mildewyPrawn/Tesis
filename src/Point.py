@@ -4,16 +4,19 @@ import math
 class Point:
     x = 0.0
     y = 0.0
-    nexts = []
     current = 0
+    m = 0.0
+    b = 0.0
+    limit = 695
 
     '''Constructor de la  clase, inicializa las coordenadas de  un punto y
     un nombre'''
-    def __init__(self, x, y, nexts=[], n=''):
+    def __init__(self, x, y, m=0, b=0, n=''):
         self.x = float(x)
         self.y = float(y)
+        self.m = m
+        self.b = b
         self.n = n
-        self.nexts = nexts
 
     '''toString de la clase.'''
     def __repr__(self):
@@ -30,13 +33,15 @@ class Point:
     # def __eq__(self, pt):
     #     return (self.x == pt.x and self.y == pt.y)
 
+    def validate(self):
+        return self.y == (self.m * self.x) + self.b
+
     def update(self):
         self.current = self.current + 1
-        if (self.current >= len(self.nexts)):
-            self.current = len(self.nexts) - 1
-        p = self.nexts[self.current]
-        self.x = float(p[0])
-        self.y = float(p[1])
+        if (self.current >= self.limit):
+            self.current = self.limit - 1
+        self.x = self.x + 1
+        self.y = (self.x * self.m) + self.b
 
     def is_between(self, p1, p2):
         # p1 = edge.p1
@@ -92,7 +97,7 @@ class Point:
 
     '''Metodo que dibuja el punto en processing'''
     def draw(self, flag=True):
-        flag = self.nexts[self.current] == self.nexts[self.current - 1]
+        flag = True
         if flag:
             stroke(0, 0, 255)
             fill(0,0,255)
