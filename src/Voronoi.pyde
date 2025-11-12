@@ -60,6 +60,8 @@ def reset():
 board y posteriormente, va a ir actualizandolo con los movimientos.'''
 def draw():
     showBoard(p, e)
+    translate(width/2-100, height/2+100)
+    scale(1, -1)
     if THREAD == "ON":
         updateBoard(pts, p, e)
 

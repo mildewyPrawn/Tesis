@@ -78,7 +78,7 @@ class Board:
     '''Metodo que calcula los puntos cambiados con la isometria.'''
     def __calculate_pts_iso(self):
         def g(p):
-            return (p*100)+250
+            return (p*75)
         def f(p):
             return (g(p.x), g(p.y), p.nexts)
         board = list(map(lambda x: f(x), self.pts))
