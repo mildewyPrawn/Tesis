@@ -128,6 +128,9 @@ class Board:
         f = open(file_name, 'w')
         time = self.iso_pts[0].current
         for nb in self.pts:
-            s = '{} {}\n'.format(nb.nexts[time][0], nb.nexts[time][1])
+            if nb.flag:
+                s = '{}\t{}\t{}\t{}\n'.format(nb.x, nb.y, nb.m, nb.b)
+            else:
+                s = '{}\t{}# static point\n'.format(nb.x, nb.y)
             f.write(s)
         f.close()
