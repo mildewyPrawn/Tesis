@@ -70,6 +70,7 @@ class Circle:
     def determinant_3x3(self, ax, ay, az, bx, by, bz, cx, cy, cz):
         return (ax * self.determinant_2x2(by, bz, cy, cz)) - (ay * self.determinant_2x2(bx, bz, cx, cz)) + (az * self.determinant_2x2(bx, by, cx, cy))
 
+    '''Metodo para obtener los valores basicos para construir la ecuacion del circulo.'''
     def get_equation(self):
         (p,r) = self.circumcircle()
         h = p.x

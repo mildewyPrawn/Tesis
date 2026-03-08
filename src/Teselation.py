@@ -8,12 +8,13 @@ import logging
 
 class Teselation:
 
-    logger = logging.getLogger('Circle')
+    logger = logging.getLogger('Teselation')
 
     '''Constructor de la clase, recibimos todos los triangulos posibles'''
     def __init__(self, triangles):
         self.triangles = triangles
 
+    ''''''
     def process_intersection(self):
         lines = []
         edges_triangles = set()
@@ -42,7 +43,6 @@ class Teselation:
 
         Necesito: el triangulo, la arista y los puntos. y la funcion clean_segments
         '''
-
         for tri in self.triangles:
             e1 = tri.ed1
             e2 = tri.ed2
@@ -107,20 +107,20 @@ class Teselation:
         self.logger.info('Intersection at: ({},{}) and ({},{})'.format(ax, ay, bx, by))
 
 
+    '''Metodo auxiliar para calcular raices.'''
     def cuad(self, a,b,c):
         if (b != 0):
             return (-1 * (a/b), -1 * (c/b))
         else:
             return (-1 * a,-1 * c)
 
+    '''Metodo para calcular las raices cuadradas de una ecuacion'''
     def chicharronera(self, a,b,c):
         sqr = math.sqrt(b**2 - (4 * a * c))
         res = -1 * b
         return ((res + sqr)/(2*a), (res - sqr)/(2*a))
 
-    '''TODO: para las  dos aristas creadas, calcular el midpoin  de line y
-    se queda solo la arista que lo contiene.
-    '''
+    '''Metodo para dados un circulo y una linea, calcular sus puntos de interseccion.'''
     def inter_cl(self, circle, line):
         mid = line.p1.middle_point(line.p2)
         (a,b,c) = line.get_mediatrix() # ax + by + c = 0
@@ -136,64 +136,6 @@ class Teselation:
         p2 = pt.Point(x2, y2)
         return (p1, p2)
 
-    '''Para cada triangulo, sacar su cicunferencia y mandar a calcular las
-    parelalas'''
-    def process(self):
-        lines = []
-        for tr in self.triangles:
-            a = tr.a
-            b = tr.b
-            c = tr.c
-            circle = cr.Circle(a=a, b=b, c=c)
-            o, r = circle.circumcircle()
-            lines = lines + self.lines_from_circle(tr, circle)
-        self.logger.info('Teselation')
-        return lines
-
+    '''Metodo que dados tres puntos, regresa dos aristas'''
     def draw_semi_lines(self, coord1, coord2, origin):
         return [ed.Edge(coord1, origin), ed.Edge(coord2, origin)]
-
-    def calculate_parallels(self, pt1, pt2, circ, epsilon=0.054303604523999995):
-        midPT = pt1.middle_point(pt2)
-        ed12 = ed.Edge(pt1, pt2)
-        m, b = ed12.get_equation()
-        distance_to_origin = midPT.distance(circ.origin)
-        # lineas paralelas a Y
-        if (math.isnan(ed12.get_slope())):
-            cx = circ.origin.x
-            return self.draw_semi_lines(pt.Point(cx - circ.radius, midPT.y), pt.Point(cx + circ.radius, midPT.y), circ.origin)
-        # lineas paralelas a X
-        if (ed12.get_slope() == 0):
-            cy = circ.origin.y
-            return self.draw_semi_lines(pt.Point(midPT.x, cy - circ.radius), pt.Point(midPT.x, cy + circ.radius), circ.origin)
-        mP = -1 * (1 / m)
-        bP = (-1 * mP * midPT.x) + midPT.y
-        pa = m
-        pb = -1
-        c1 = b
-        d = circ.radius
-        # ajustar el centro, solo cuando no es igual al origen
-        if distance_to_origin != 0:
-            # a veces recorremos pa'rriba, otras pa'bajo
-            c1 = c1 + (distance_to_origin if m < 0 else (-1 * distance_to_origin))
-        else:
-            c1 = c1 + (epsilon if m > 0 else (-1 * epsilon))
-        ab = math.sqrt((pa**2) + (pb**2))
-        minus = (-1 * ((d * ab) - c1)) + (epsilon if m < 0 else (-1 * epsilon))
-        mayus = (-1 * ((d * (-1 * ab)) - c1)) + (epsilon if m < 0 else (-1 * epsilon))
-        intXminus = ((-1 * minus) - (-1 * bP)) / ((mP * -1) - (m * -1))
-        intYminus = ((m * bP) - (mP * minus)) / ((mP * -1) - (m * -1))
-        intXmayus = ((-1 * mayus) - (-1 * bP)) / ((mP * -1) - (m * -1))
-        intYmayus = ((m * bP) - (mP * mayus)) / ((mP * -1) - (m * -1))
-        return self.draw_semi_lines(pt.Point(intXminus, intYminus), pt.Point(intXmayus, intYmayus), circ.origin)
-
-    def calculate_parallels_2(self, pt1, pt2, circ):
-        pass
-
-    def lines_from_circle(self, tr, circ):
-        a = tr.a
-        b = tr.b
-        c = tr.c
-        lines = self.calculate_parallels(a, b, circ) + self.calculate_parallels(b, c, circ) + self.calculate_parallels(c, a, circ)
-        self.logger.info('<Lines: {}> from <circle {},{},{} origin: {} and radius {}>: {}'.format(lines, a,b,c,circ.origin,circ.radius))
-        return lines

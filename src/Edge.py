@@ -17,26 +17,35 @@ class Edge:
     def __str__(self):
         return '{}-{}[{}]'.format(self.p1, self.p2, self.slope)
 
+    '''Metodo para ver igualdad entre aristas'''
     def __eq__(self, edge):
         if (edge == None):
             return False
         return (self.p1.is_equal(edge.p1) or self.p2.is_equal(edge.p1)) and (self.p1.is_equal(edge.p2) or self.p2.is_equal(edge.p2))
 
+    '''Metodo para calcular el hash de una arista, necesitamos un tipo tupla y aqui se crea la tupla (a-b)'''
     def __key(self):
         return (self.p1, self.p2)
 
+    '''Metodo para calcular el hash de una arista, necesitamos un tipo tupla y aqui se crea la tupla (b-a)'''
     def __u_key(self):
         return (self.p2, self.p1)
 
+    '''Metodo para calcular el hash de una arista y poder guardarlo en
+    diccionarios, usamos el hash entre  las dos posibles tuplas de una
+    arista'''
     def __hash__(self):
         return hash(self.__key()) & hash(self.__u_key())
 
+    '''getter para el punto principal de una arista.'''
     def p1(self):
         return self.p1
 
+    '''Metodo para ver si dos aristas se tocan en sus vertices.'''
     def touch(self, edge):
         return self.p1 == edge.p1 or self.p1 == edge.p2 or self.p2 == edge.p1 or self.p2 == edge.p2
 
+    '''Metodo para calcular la arista inversa de self'''
     def invert(self):
         e = Edge(self.p2, self.p1)
         return e
@@ -89,12 +98,15 @@ class Edge:
         y0 = ((c1*a2)-(c2*a1)) / s
         return pt.Point(x0, y0)
 
+    '''Setter para el bisector de una arista'''
     def set_bisector(self, bisector):
         self.bisector = bisector
 
+    '''Getter para el bisector de una arista'''
     def get_bisector(self):
         return self.bisector
 
+    '''Metodo para calcular la pendiente de una arista.'''
     def get_slope(self):
         if (self.p1.x == self.p2.x):
             return(float('nan'))
@@ -104,6 +116,7 @@ class Edge:
         self.slope = m
         return m
 
+    '''Metodo para calcular la ecuacion de la recta de una arista.'''
     def get_equation(self):
         m = self.get_slope()
         x = self.p1.x

@@ -14,7 +14,6 @@ class Board:
     buena idea  hacer la parte  de isometria, como lo  tenemos siempre
     calcula la isometria hasta que se pide.
     '''
-
     logger = logging.getLogger('Board')
 
     def __init__(self, pts):
@@ -29,6 +28,7 @@ class Board:
     def __str__(self):
         return str(pts)
 
+    '''Actualizar los puntos en el tablero de processing.'''
     def update(self):
         for pti in self.iso_pts:
             pti.update()
@@ -112,6 +112,8 @@ class Board:
         self.edges = polygons.process_intersection()
         return self.edges
 
+    '''Metodo para escribir en un archivo de LaTeX la configuracion de
+    los puntos en tikz y poder exportarlos como imagen a un archivo de LaTeX.'''
     def print_thesis_in_tikz(self):
         self.logger.info('Tikz saved on: {}.'.format('tikz.tex'))
         tikz = dr.Drawer(self.edges, self.triangles)

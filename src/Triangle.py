@@ -26,14 +26,17 @@ class Triangle:
         return '[{}, {}, {}]'.format(self.ed1.p1, self.ed2.p1, self.ed3.p1)
         # return
 
+    '''Metodo para dados dos triangulos ver si son iguales vertice a vertice'''
     def __eq__(self, tri):
         if (tri == None):
             return False
         return (self.a == tri.a or self.a == tri.b or self.a == tri.c) and (self.b == tri.a or self.b == tri.b or self.b == tri.c) and (self.c == tri.a or self.c == tri.b or self.c == tri.c)
 
+    '''Metodo para hashear un objeto y poder uardarlo en un diccionario'''
     def __hash__(self):
         return hash(frozenset([self.a, self.b, self.c]))
 
+    '''Metodo para ver si dos tirangulos se intersectan'''
     def intersect(self, tri):
         t1a = self.ed1
         t1b = self.ed2
@@ -66,6 +69,7 @@ class Triangle:
         self.circle.draw()
 
 
+    '''Metodo para ver si un punto esta en la circunferencia generada por el triangulo.'''
     def inCircumcircle(self, pt):
         dx = self.origin.x - pt.x
         dy = self.origin.y - pt.y
@@ -117,38 +121,3 @@ class Triangle:
     '''
     def determinant_3x3(self, ax, ay, az, bx, by, bz, cx, cy, cz):
         return (ax * self.determinant_2x2(by, bz, cy, cz)) - (ay * self.determinant_2x2(bx, bz, cx, cz)) + (az * self.determinant_2x2(bx, by, cx, cy))
-
-    def __area__(self, p1, p2, p3):
-        ax = p1.x
-        ay = p1.y
-        bx = p2.x
-        by = p2.y
-        cx = p3.x
-        cy = p3.y
-        return abs((ax * (by - cy) + bx * (cy - ay) + cx * (ay - by)) / 2.0)
-
-    def __contains__(self, p):
-        if isinstance(p, pt.Point):
-            x1 = self.a.x
-            y1 = self.a.y
-            x2 = self.b.x
-            y2 = self.b.y
-            x3 = self.c.x
-            y3 = self.c.y
-            x = p.x
-            y = p.y
-            A = self. __area__(pt.Point(x1, y1), pt.Point(x2, y2), pt.Point(x3, y3))
-            # Calculate area of triangle PBC
-            A1 = self.__area__(p, pt.Point(x2, y2), pt.Point(x3, y3))
-            # Calculate area of triangle PAC
-            A2 = self.__area__(pt.Point(x1, y1), p, pt.Point(x3, y3))
-            # Calculate area of triangle PAB
-            A3 = self.__area__(pt.Point(x1, y1), pt.Point(x2, y2), p)
-            # Check if sum of A1, A2 and A3
-            # is same as A
-            return A == A1 + A2 + A3
-        else:
-            raise ValueError('Not a point')
-
-    def __iter__(self):
-        return iter([self.a, self.b, self.c])

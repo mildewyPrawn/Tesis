@@ -16,6 +16,7 @@ class Drawer:
         self.edges = edges
         self.triangles = triangles
 
+    '''Metodo para calcular los limites de processing.'''
     def min_max(self, pts):
         min_x = float('inf')
         min_y = float('inf')

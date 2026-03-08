@@ -28,6 +28,8 @@ def lines_to_tuples(pts):
         logger.info('Puntos leidos: {}'.format(pts_as_tups))
     return pts_as_tups
 
+'''Metodo que lee el archivo y cada linea la convierte en un punto con
+su respectiva ecuacion de y=mx+b'''
 def lines_to_points(filename):
     pts = []
 
@@ -84,10 +86,12 @@ def updateBoard(board, points, edges):
     p = board.drawPoints()
     logger.info('Update Board: <points {}>, <edges {}>'.format(p, e))
 
+'''Metodo para imprimir en tikz'''
 def print_thesis(board):
     logger.info('Draw tikz.')
     board.print_thesis_in_tikz()
 
+'''Metodo para guardar el instante de tiempo de una configuracion de puntos.'''
 def save_thesis(board):
     logger.info('Save frame.')
     board.save_thesis()
