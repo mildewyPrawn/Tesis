@@ -33,5 +33,4 @@
 ** Biblioteca
 
 Se usa [[https://processing.org/][processing]] para dibujar  los objetos geométricos, la biblioteca
-está incluida en el directorio  ~lib/~. Tal vez sea necesario realizar
-el siguiente comando.
+está incluida en el directorio  ~lib/~.
