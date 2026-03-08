@@ -1,1 +1,2 @@
 *.class
+src/__pycache__*

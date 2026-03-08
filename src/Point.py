@@ -4,13 +4,23 @@ import math
 class Point:
     x = 0.0
     y = 0.0
+    current = 0
+    m = 0.0
+    b = 0.0
+    limit = 695
 
-    '''Constructor de la  clase, inicializa las coordenadas de  un punto y
-    un nombre'''
-    def __init__(self, x, y, n=''):
-        self.x = x
-        self.y = y
+    '''Constructor  de  la clase,  inicializa  las  coordenadas de  un
+    punto, la  pendiente, y  donde corta al  eje'y', una  bandera para
+    indicar si el punto se movera o no, ademas de un nombre.
+
+    '''
+    def __init__(self, x, y, m=0, b=0, flag=True, n=''):
+        self.x = float(x)
+        self.y = float(y)
+        self.m = m
+        self.b = b
         self.n = n
+        self.flag = flag
 
     '''toString de la clase.'''
     def __repr__(self):
@@ -27,19 +37,22 @@ class Point:
     # def __eq__(self, pt):
     #     return (self.x == pt.x and self.y == pt.y)
 
-    def is_between(self, p1, p2):
-        # p1 = edge.p1
-        # p2 = edge.p2
-        cross_product = self.ccw(p1, p2)
-        if (abs(cross_product) > 0):
-            return False
-        dot_product = (p2.x - self.x) * (p1.x - self.x) + (p2.y - self.y)*(p1.y - self.y)
-        if (dot_product < 0):
-            return False
-        squared_length = (p1.x - self.x)*(p1.x - self.x) + (p1.y - self.y)*(p1.y - self.y)
-        if (dot_product > squared_length):
-            return False
+    '''Metodo para validar que '''
+    def validate(self):
+        if self.flag:
+            return self.y == (self.m * self.x) + self.b
         return True
+
+    '''Metodo para  actualizar un  punto, se sigue  la ecuacion  de la
+    recta definida para calcular su trayectoria.'''
+    def update(self):
+        if not self.flag:
+            return
+        self.current = self.current + 1
+        if (self.current >= self.limit):
+            self.current = self.limit - 1
+        self.x = self.x + 5
+        self.y = (self.x * self.m) + self.b
 
     '''Metodo que regresa una lista con la posicion en forma de lista.'''
     def pos(self):
@@ -74,6 +87,7 @@ class Point:
         d = self.distance(pt)
         return d < circ.radius
 
+    '''Metodo que calcula el punto medio entre dos puntos.'''
     def middle_point(self, pt):
         x = (self.x + pt.x)/2
         y = (self.y + pt.y)/2
@@ -81,7 +95,7 @@ class Point:
 
     '''Metodo que dibuja el punto en processing'''
     def draw(self, flag=True):
-        if flag:
+        if self.flag:
             stroke(0, 0, 255)
             fill(0,0,255)
         else:

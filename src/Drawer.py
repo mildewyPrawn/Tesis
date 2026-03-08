@@ -16,6 +16,7 @@ class Drawer:
         self.edges = edges
         self.triangles = triangles
 
+    '''Metodo para calcular los limites de processing.'''
     def min_max(self, pts):
         min_x = float('inf')
         min_y = float('inf')
@@ -124,69 +125,6 @@ class Drawer:
 
         self.logger.info('Max coords are: {}, {}, {}, {}'.format(e1, e2, e3, e4))
 
-        for t in self.triangles:
-            _e1 = t.ed1
-            _e2 = t.ed2
-            _e3 = t.ed3
-            a = t.a
-            b = t.b
-            c = t.c
-            be1 = _e1.get_bisector()
-            be2 = _e2.get_bisector()
-            be3 = _e3.get_bisector()
-            c = cr.Circle(a=a, b=b, c=c)
-            (o, _) = c.circumcircle()
-            o = pt.Point(o.x/100, o.y/100)
-            if be1 in self.edges:
-                line_normalized = ed.Edge(pt.Point(be1.p2.x/100, be1.p2.y/100), pt.Point(be1.p1.x/100, be1.p1.y/100))
-                tikz = tikz + voronoi.format(be1.p1.x/100, be1.p1.y/100, be1.p2.x/100, be1.p2.y/100)
-                if (be1.edge_intersection(e1) or be1.edge_intersection(e2) or be1.edge_intersection(e3) or be1.edge_intersection(e4)):
-                    continue
-                pe1 = line_normalized.line_intersection(e1)
-                pe2 = line_normalized.line_intersection(e2)
-                pe3 = line_normalized.line_intersection(e3)
-                pe4 = line_normalized.line_intersection(e4)
-                '''no  quiero el  centro, quiero  el  otro. primero  pongo siempre  el
-                origen'''
-                o_b = pt.Point(be1.p2.x/100, be1.p2.y/100)
-
-                (d, to_pt) = min([(o_b.distance(pe1), pe1), (o_b.distance(pe2), pe2), (o_b.distance(pe3), pe3), (o_b.distance(pe4), pe4)], key=lambda t: t[0])
-                tikz = tikz + voronoio.format(to_pt.x, to_pt.y, be1.p2.x/100, be1.p2.y/100)
-            if be2 in self.edges:
-                line_normalized = ed.Edge(pt.Point(be2.p2.x/100, be2.p2.y/100), pt.Point(be2.p1.x/100, be2.p1.y/100))
-                tikz = tikz + voronoi.format(be2.p1.x/100, be2.p1.y/100, be2.p2.x/100, be2.p2.y/100)
-                if (be2.edge_intersection(e1) or be2.edge_intersection(e2) or be2.edge_intersection(e3) or be2.edge_intersection(e4)):
-                    continue
-                pe1 = line_normalized.line_intersection(e1)
-                pe2 = line_normalized.line_intersection(e2)
-                pe3 = line_normalized.line_intersection(e3)
-                pe4 = line_normalized.line_intersection(e4)
-                '''no  quiero el  centro, quiero  el  otro. primero  pongo siempre  el
-                origen'''
-                o_b = pt.Point(be2.p2.x/100, be2.p2.y/100)
-
-                (d, to_pt) = min([(o_b.distance(pe1), pe1), (o_b.distance(pe2), pe2), (o_b.distance(pe3), pe3), (o_b.distance(pe4), pe4)], key=lambda t: t[0])
-                tikz = tikz + voronoio.format(to_pt.x, to_pt.y, be2.p2.x/100, be2.p2.y/100)
-            if be3 in self.edges:
-                line_normalized = ed.Edge(pt.Point(be3.p2.x/100, be3.p2.y/100), pt.Point(be3.p1.x/100, be3.p1.y/100))
-                tikz = tikz + voronoi.format(be3.p1.x/100, be3.p1.y/100, be3.p2.x/100, be3.p2.y/100)
-                if (be3.edge_intersection(e1) or be3.edge_intersection(e2) or be3.edge_intersection(e3) or be3.edge_intersection(e4)):
-                    continue
-                pe1 = line_normalized.line_intersection(e1)
-                pe2 = line_normalized.line_intersection(e2)
-                pe3 = line_normalized.line_intersection(e3)
-                pe4 = line_normalized.line_intersection(e4)
-                '''no  quiero el  centro, quiero  el  otro. primero  pongo siempre  el
-                origen'''
-                o_b = pt.Point(be3.p2.x/100, be3.p2.y/100)
-
-                (d, to_pt) = min([(o_b.distance(pe1), pe1), (o_b.distance(pe2), pe2), (o_b.distance(pe3), pe3), (o_b.distance(pe4), pe4)], key=lambda t: t[0])
-                tikz = tikz + voronoio.format(to_pt.x, to_pt.y, be3.p2.x/100, be3.p2.y/100)
-
-        tikz = tikz + voronoi.format(min_[0], min_[1], max_[0], min_[1])
-        tikz = tikz + voronoi.format(min_[0], min_[1], min_[0], max_[1])
-        tikz = tikz + voronoi.format(max_[0], max_[1], min_[0], max_[1])
-        tikz = tikz + voronoi.format(max_[0], max_[1], max_[0], min_[1])
         # draw blue points for triangle vertices
         for t in self.triangles:
             e1 = t.ed1

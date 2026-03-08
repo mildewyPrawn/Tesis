@@ -1,6 +1,7 @@
 import itertools
 import heapq
 import random
+import sys
 import Point as pt
 import Edge as ed
 import Circle as cr
@@ -26,6 +27,30 @@ def lines_to_tuples(pts):
         pts_as_tups.append((float(tup[0]), float(tup[1])))
         logger.info('Puntos leidos: {}'.format(pts_as_tups))
     return pts_as_tups
+
+'''Metodo que lee el archivo y cada linea la convierte en un punto con
+su respectiva ecuacion de y=mx+b'''
+def lines_to_points(filename):
+    pts = []
+
+    with open(filename) as file:
+        for line in file:
+            line = line.strip()
+            comment = line.find('#')
+            if comment != -1:
+                line = line[0:comment]
+            p = line.split()
+            if len(p) == 4:
+                pts.append(pt.Point(float(p[0]), float(p[1]), float(p[2]), float(p[3])))
+            if len(p) == 2:
+                pts.append(pt.Point(float(p[0]), float(p[1]), flag=False))
+
+    for p in pts:
+        if not p.validate():
+            print("the point {} does not lie on the trajectory".format(p))
+            sys.exit(1)
+
+    return pts
 
 '''Funcion que  crea el tablero  inicial. Tenemos que  usar isometrias
 para relocar los puntos, de otra  forma se ven muy juntos. Actualmente
@@ -56,15 +81,17 @@ def showBoard(points, edges):
 que dibujar'''
 def updateBoard(board, points, edges):
     background(0)
-    board.randomize()
+    board.update()
     e = board.drawLines()
     p = board.drawPoints()
     logger.info('Update Board: <points {}>, <edges {}>'.format(p, e))
 
+'''Metodo para imprimir en tikz'''
 def print_thesis(board):
     logger.info('Draw tikz.')
     board.print_thesis_in_tikz()
 
+'''Metodo para guardar el instante de tiempo de una configuracion de puntos.'''
 def save_thesis(board):
     logger.info('Save frame.')
     board.save_thesis()
