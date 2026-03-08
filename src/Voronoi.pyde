@@ -43,17 +43,16 @@ def exit_app():
 
 def pause_play():
     global THREAD
-    print("\u23ef")
     if THREAD == "OFF":
         THREAD = "ON"
     else:
         THREAD = "OFF"
 
-btn_r = btn.Button(10, 10, 20, 23, "r", reset)
-btn_p = btn.Button(30, 10, 20, 23, "p", print_tikz)
-btn_g = btn.Button(50, 10, 20, 23, "g", save_frame)
-btn_q = btn.Button(70, 10, 20, 23, "q", exit_app)
-btn_pp = btn.Button(90, 10, 20, 23, unichr(0x23ef), pause_play)
+btn_r = btn.Button(10, 10, 20, 40, "r", reset)
+btn_p = btn.Button(30, 10, 20, 40, "p", print_tikz)
+btn_g = btn.Button(50, 10, 20, 40, "g", save_frame)
+btn_q = btn.Button(70, 10, 20, 40, "q", exit_app)
+btn_pp = btn.Button(90, 10, 20, 40, unichr(0x23ef), pause_play)
 
 '''Metodo que necesita processing  para inicializar todo, asignamos el
 tamano  de la  ventana  y el  background. points  son  los puntos  que
@@ -62,7 +61,7 @@ def setup():
     global p, e, points
     if MODE == "RANDOM":
         p, e = makeBoards(pts)
-    size(700, 700)
+    size(1500, 1200)
     background(0)
     frameRate(FRAMERATE)
 
@@ -99,6 +98,8 @@ def draw():
         updateBoard(pts, p, e)
 
     popMatrix()
+
+    textSize(24)
 
     btn_r.display()
     btn_p.display()

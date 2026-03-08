@@ -68,10 +68,10 @@ def makeNewBoard(pts):
 no ir al infinito.'''
 def drawBorder():
     stroke(0,0,255)
-    line(5, 5, 695, 5);
-    line(5, 5, 5, 695);
-    line(695, 695, 695, 5);
-    line(695, 695, 5, 695);
+    line(5, 5, 1495, 5);
+    line(5, 5, 5, 1195);
+    line(1495, 1195, 1495, 5);
+    line(1495, 1195, 5, 1195);
 
 '''Funcion que muestra el tablero, dibuja bolitas en el mapa.'''
 def showBoard(points, edges):
